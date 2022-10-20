@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Pokedex.Pokemones;
+using System.Data.SqlClient;
 
 namespace Pokedex
 {
@@ -8,6 +9,30 @@ namespace Pokedex
     {
         static void Main(string[] args)
         {
+            /*SQL Connection String Information*/
+            string connectionString = "";
+            SqlConnection dbcn;
+            connectionString = @"Server =DESKTOP-CCJ8U8S\MSSQLSERVER02;Database=Pokedex;
+                                    Trusted_Connection = True";
+            dbcn = new SqlConnection(connectionString);
+            dbcn.Open();
+            Console.WriteLine("Conectado Exitosamente!");
+            dbcn.Close();
+            /*SQL String End*/
+            /*SQL Inserting Data*/
+            SqlCommand command;
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            string Insert = "";
+            dbcn.Open();
+            Insert = "Insert into Pokedex (Id,Name,Description)," +
+                "Values('Keen Eye','Pidgeots Accuracy cannot be Lowered by Opponent ')";
+            command = new SqlCommand(Insert,dbcn);
+            adapter.InsertCommand = new SqlCommand(Insert, dbcn);
+            adapter.InsertCommand.ExecuteNonQuery();
+            
+            command.Dispose();
+            dbcn.Close();
+            /**SQL End Insert*/
             List<Pokemon> DatosPokemon = new List<Pokemon>()
             {
                 //Pikachu
