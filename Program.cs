@@ -25,46 +25,35 @@ namespace Pokedex
             SqlDataAdapter adapter = new SqlDataAdapter();
             SqlDataReader reader;
             string sql, output = "";
-            //string Insert = "";
-            //dbcn.Open();
-            ////Insert = "Insert into Pokedex (Id,Name,Description)," +
-            ////    "Values('Keen Eye','Pidgeots Accuracy cannot be Lowered by Opponent ')";
-            ////command = new SqlCommand(Insert,dbcn);
-            ////adapter.InsertCommand = new SqlCommand(Insert, dbcn);
-            ////adapter.InsertCommand.ExecuteNonQuery();
 
-            //command.Dispose();
             dbcn.Open();
             sql = "SELECT ID,Name,Description FROM Pokemons";
-            command = new SqlCommand(sql, dbcn);
-            reader = command.ExecuteReader();
-            //output = reader.GetValue(0) + "--" + reader.GetValue(1)
-            //+ "--" + reader.GetValue(2);
-            //Console.WriteLine(output);
-            //dbcn.Close();
-            /**SQL End Insert*/
-
+            adapter = new SqlDataAdapter(sql,dbcn);
+            DataSet Pokemons = new DataSet();
+            adapter.Fill(Pokemons,"Pokemons");
+            //command = new SqlCommand(sql, dbcn);
+            //reader = command.ExecuteReader();
+            DataRow pokemonId;
             Console.WriteLine("Lista de Pokemones:");
-
-            while (reader.Read())
+            foreach (DataRow pokemonRows in Pokemons.Tables["Pokemons"].Rows)
             {
-                Console.WriteLine
-                (
-                    output = reader.GetValue(0) + "--" + reader.GetValue(1)
-                 ); ;
-            };
-            dbcn.Close();
+                Console.WriteLine(pokemonRows["ID"] + "--" + pokemonRows["Name"]);
+                if (Pokemons.Tables["Pokemons"].Rows.Count)
+                {
+
+                }
+            }
 
             Console.WriteLine("Eligir el pokemon deseado: ");
             int pokemonSeleccionado = Convert.ToInt32(Console.ReadLine());
-            dbcn.Open();
-            reader = command.ExecuteReader();
+            //dbcn.Open();
+            //reader = command.ExecuteReader();
+            //if (pokemonId["ID"] == pokemonSeleccionado)
+            //{
+            //    Console.WriteLine("Hello World");
+            //}    
           
-            if ()
-            {
-                
-            };
-            dbcn.Close();
+            //dbcn.Close();
 
             Console.ReadKey();
         }
