@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Pokedex.Pokemones;
 using System.Data.SqlClient;
 using System.Data;
+using Microsoft.Identity.Client;
 
 namespace Pokedex
 {
@@ -31,28 +32,26 @@ namespace Pokedex
             adapter = new SqlDataAdapter(sql,dbcn);
             DataSet Pokemons = new DataSet();
             adapter.Fill(Pokemons,"Pokemons");
+
             //command = new SqlCommand(sql, dbcn);
             //reader = command.ExecuteReader();
-            DataRow pokemonId;
+            DataRow saved;
             Console.WriteLine("Lista de Pokemones:");
             foreach (DataRow pokemonRows in Pokemons.Tables["Pokemons"].Rows)
             {
                 Console.WriteLine(pokemonRows["ID"] + "--" + pokemonRows["Name"]);
-                if (Pokemons.Tables["Pokemons"].Rows.Count)
-                {
-
-                }
-            }
+            };
 
             Console.WriteLine("Eligir el pokemon deseado: ");
             int pokemonSeleccionado = Convert.ToInt32(Console.ReadLine());
+            //DataRow seleccionado = Pokemons.Tables["Pokemons"].Rows.Contains(pokemonSeleccionado);
             //dbcn.Open();
             //reader = command.ExecuteReader();
-            //if (pokemonId["ID"] == pokemonSeleccionado)
-            //{
-            //    Console.WriteLine("Hello World");
-            //}    
-          
+            if (Pokemons.Tables["Pokemons"].Rows["ID"])
+            {
+
+            }
+
             //dbcn.Close();
 
             Console.ReadKey();
