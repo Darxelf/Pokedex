@@ -13,10 +13,9 @@ namespace Pokedex
         {
             /*SQL Connection String Information*/
             string connectionString = "";
-            SqlConnection dbcn;
             connectionString = @"Server =DESKTOP-CCJ8U8S\MSSQLSERVER02;Database=Pokedex;
                                     Trusted_Connection = True";
-            dbcn = new SqlConnection(connectionString);
+            SqlConnection dbcn = new SqlConnection(connectionString);
             dbcn.Open();
             Console.WriteLine("Conectado Exitosamente!");
             dbcn.Close();
@@ -26,16 +25,11 @@ namespace Pokedex
             SqlDataAdapter adapter = new SqlDataAdapter();
             SqlDataReader reader;
             string sql, output = "";
-
             dbcn.Open();
-            sql = "SELECT ID,Name,Description FROM Pokemons";
+            sql = "SELECT ID,Name,Description FROM Pokemons"+"SELECT";
             adapter = new SqlDataAdapter(sql,dbcn);
             DataSet Pokemons = new DataSet();
             adapter.Fill(Pokemons,"Pokemons");
-
-            //command = new SqlCommand(sql, dbcn);
-            //reader = command.ExecuteReader();
-            DataRow saved;
             Console.WriteLine("Lista de Pokemones:");
             foreach (DataRow pokemonRows in Pokemons.Tables["Pokemons"].Rows)
             {
@@ -47,9 +41,12 @@ namespace Pokedex
             //DataRow seleccionado = Pokemons.Tables["Pokemons"].Rows.Contains(pokemonSeleccionado);
             //dbcn.Open();
             //reader = command.ExecuteReader();
-            if (Pokemons.Tables["Pokemons"].Rows["ID"])
+            foreach  (DataRow pokemonRows in Pokemons.Tables["Pokemons"].Rows)
             {
-
+                if (pokemonSeleccionado == Convert.ToInt16(pokemonRows["ID"]))
+                {
+                    Console.WriteLine(pokemonRows["ID"]+"--"+pokemonRows["Name"]+"--"+pokemonRows["Description"]);
+                }
             }
 
             //dbcn.Close();
