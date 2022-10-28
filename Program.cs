@@ -13,20 +13,20 @@ namespace Pokedex
         {
             /*SQL Connection String Information*/
             string connectionString = "";
-            connectionString = @"Server =DESKTOP-CCJ8U8S\MSSQLSERVER02;Database=Pokedex;
+            connectionString = @"Server=DESKTOP-CCJ8U8S\MSSQLSERVER02;Database=Pokedex;
                                     Trusted_Connection = True";
             SqlConnection dbcn = new SqlConnection(connectionString);
             dbcn.Open();
             Console.WriteLine("Conectado Exitosamente!");
             dbcn.Close();
             /*SQL String End*/
-            /*SQL Inserting Data*/
+            /*SQL Consult Data From DataBase*/
             SqlCommand command;
             SqlDataAdapter adapter = new SqlDataAdapter();
             SqlDataReader reader;
-            string sql, output = "";
+            string sql= "";
             dbcn.Open();
-            sql = "SELECT ID,Name,Description FROM Pokemons"+"SELECT";
+            sql = "SELECT ID,Name,Description FROM Pokemons";
             adapter = new SqlDataAdapter(sql,dbcn);
             DataSet Pokemons = new DataSet();
             adapter.Fill(Pokemons,"Pokemons");
@@ -35,7 +35,15 @@ namespace Pokedex
             {
                 Console.WriteLine(pokemonRows["ID"] + "--" + pokemonRows["Name"]);
             };
+            /*End DataBase Consult*/
+            /*Pokemon Inserted Data*/
+            Console.WriteLine("--Creacion del Pokemon--");
+            Console.WriteLine("Insert Pokemon Name");
+            Pokemon pkmInserted = new Pokemon();
+            pkmInserted.Name = Console.ReadLine();
 
+            Console.WriteLine("");
+            /*End Insert Data*/
             Console.WriteLine("Eligir el pokemon deseado: ");
             int pokemonSeleccionado = Convert.ToInt32(Console.ReadLine());
             //DataRow seleccionado = Pokemons.Tables["Pokemons"].Rows.Contains(pokemonSeleccionado);
@@ -48,6 +56,7 @@ namespace Pokedex
                     Console.WriteLine(pokemonRows["ID"]+"--"+pokemonRows["Name"]+"--"+pokemonRows["Description"]);
                 }
             }
+         
 
             //dbcn.Close();
 

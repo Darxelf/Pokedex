@@ -6,9 +6,8 @@ namespace Pokedex.Pokemones
 {
     class Skills
     {
-        public int IdSkill { get; set;}
-        public string SkillName { get; set; }
-        public int AttackPower { get; set;}
-        public int PowerPoint { get; set;}
+        public int Id { get; set;}
+        public string Name { get; set; }
+        public string Description {get;set;}
     }
 }

@@ -9,14 +9,16 @@ namespace Pokedex.Pokemones
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Type { get; set; }
-        public Skills[] Moves = new Skills[4];
+        public string pkmnDescription { get; set; }
+        public Types TypeId { get; set; }
+
+        public Moves[] pkmnMoves = new Moves[4];
        
         public void Darpresentacion ()
             {
                 Console.WriteLine(Id);
                 Console.WriteLine(Name);
-                Console.WriteLine(Type);
+                //Console.WriteLine(Type);
             }
     }
 }
