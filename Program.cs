@@ -37,12 +37,22 @@ namespace Pokedex
             };
             /*End DataBase Consult*/
             /*Pokemon Inserted Data*/
-            Console.WriteLine("--Creacion del Pokemon--");
-            Console.WriteLine("Insert Pokemon Name");
+            Console.WriteLine("<---Creacion del Pokemon--->");
             Pokemon pkmInserted = new Pokemon();
+            Console.WriteLine("Insert Pokemon Name");
             pkmInserted.Name = Console.ReadLine();
-
-            Console.WriteLine("");
+            Console.WriteLine("Insert Pokemon Description:");
+            pkmInserted.pkmnDescription = Console.ReadLine();
+            Console.WriteLine("Insert Pokemon Type:");
+            pkmInserted.TypeId.Id = Convert.ToInt32(new Types());
+            Console.WriteLine("Insert Pokemon Skill:");
+            pkmInserted.SkillId.Id = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Insert Pokemon Move: ");
+            pkmInserted.pkmnMoves = new Moves[]
+            { 
+                new Moves{ID = Convert.ToInt32(Console.ReadLine())}
+            };
+            pkmInserted.Darpresentacion();
             /*End Insert Data*/
             Console.WriteLine("Eligir el pokemon deseado: ");
             int pokemonSeleccionado = Convert.ToInt32(Console.ReadLine());
