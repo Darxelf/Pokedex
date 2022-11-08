@@ -18,9 +18,9 @@ namespace Pokedex.Pokemones
             {
                 Console.WriteLine(Name);
                 Console.WriteLine(pkmnDescription);
-                Console.WriteLine(TypeId);
-                Console.WriteLine(SkillId);
-                Console.WriteLine(pkmnMoves);
+                Console.WriteLine(TypeId.Id);
+                Console.WriteLine(SkillId.Id);
+            Console.WriteLine(pkmnMoves[0]);
                 //Console.WriteLine(Type);
             }
     }

@@ -4,6 +4,8 @@ using Pokedex.Pokemones;
 using System.Data.SqlClient;
 using System.Data;
 using Microsoft.Identity.Client;
+using System.IdentityModel.Tokens.Jwt;
+using System.Runtime.CompilerServices;
 
 namespace Pokedex
 {
@@ -12,7 +14,7 @@ namespace Pokedex
         static void Main(string[] args)
         {
             /*SQL Connection String Information*/
-            string connectionString = "";
+            string connectionString,insertString = "";
             connectionString = @"Server=DESKTOP-CCJ8U8S\MSSQLSERVER02;Database=Pokedex;
                                     Trusted_Connection = True";
             SqlConnection dbcn = new SqlConnection(connectionString);
@@ -21,7 +23,8 @@ namespace Pokedex
             dbcn.Close();
             /*SQL String End*/
             /*SQL Consult Data From DataBase*/
-            SqlCommand command;
+            SqlCommand insert;
+            string insertPokemon = "";
             SqlDataAdapter adapter = new SqlDataAdapter();
             SqlDataReader reader;
             string sql= "";
@@ -36,7 +39,7 @@ namespace Pokedex
                 Console.WriteLine(pokemonRows["ID"] + "--" + pokemonRows["Name"]);
             };
             /*End DataBase Consult*/
-            /*Pokemon Inserted Data*/
+            /*Pokemon Creation  Data*/
             Console.WriteLine("<---Creacion del Pokemon--->");
             Pokemon pkmInserted = new Pokemon();
             Console.WriteLine("Insert Pokemon Name");
@@ -44,16 +47,35 @@ namespace Pokedex
             Console.WriteLine("Insert Pokemon Description:");
             pkmInserted.pkmnDescription = Console.ReadLine();
             Console.WriteLine("Insert Pokemon Type:");
-            pkmInserted.TypeId.Id = Convert.ToInt32(new Types());
+            pkmInserted.TypeId = new Types{Id = Convert.ToInt32(Console.ReadLine())};
             Console.WriteLine("Insert Pokemon Skill:");
-            pkmInserted.SkillId.Id = Convert.ToInt32(Console.ReadLine());
+            pkmInserted.SkillId = new Skills {Id = Convert.ToInt32(Console.ReadLine())};
             Console.WriteLine("Insert Pokemon Move: ");
             pkmInserted.pkmnMoves = new Moves[]
             { 
                 new Moves{ID = Convert.ToInt32(Console.ReadLine())}
             };
             pkmInserted.Darpresentacion();
-            /*End Insert Data*/
+            /*End Creation  Data*/
+            Console.WriteLine("Deseas Insertar los datos del pokemon en la Base de Datos?");
+            Console.WriteLine("Si = 1 , No = 0");
+             int options = Convert.ToInt32(Console.ReadLine());
+            if (options == 1)
+            {
+                insertPokemon = $"INSERT INTO Pokemons({pkmInserted.Name},{pkmInserted.pkmnDescription},{pkmInserted.TypeId},{pkmInserted.SkillId},{pkmInserted.pkmnMoves[0]})" +
+                $"\r\nVALUES ('Swampert','it is said to sing plaintively as it seeks what few others of its kind still remain. ',\r\n  (SELECT ID FROM Types WHERE ID ={pkmInserted.TypeId}),(SELECT ID FROM Skills WHERE ID = {pkmInserted.SkillId}),(SELECT ID FROM Moves WHERE ID = {pkmInserted.pkmnMoves[0]}))";
+                /*Pokemon Data To Data Base*/
+                insert = new SqlCommand(insertPokemon,dbcn);
+                adapter.InsertCommand = new SqlCommand(insertPokemon,dbcn);
+                adapter.InsertCommand.ExecuteNonQuery();
+                
+               /*End Of Data Transmission*/
+            }
+            else 
+            {
+                Console.WriteLine("Wrong Chosen Number!!");
+                
+            }
             Console.WriteLine("Eligir el pokemon deseado: ");
             int pokemonSeleccionado = Convert.ToInt32(Console.ReadLine());
             //DataRow seleccionado = Pokemons.Tables["Pokemons"].Rows.Contains(pokemonSeleccionado);
