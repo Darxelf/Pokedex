@@ -20,7 +20,7 @@ namespace Pokedex.Pokemones
                 Console.WriteLine(pkmnDescription);
                 Console.WriteLine(TypeId.Id);
                 Console.WriteLine(SkillId.Id);
-            Console.WriteLine(pkmnMoves[0]);
+            Console.WriteLine(pkmnMoves[0].ID);
                 //Console.WriteLine(Type);
             }
     }

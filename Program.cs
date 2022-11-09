@@ -59,22 +59,19 @@ namespace Pokedex
             /*End Creation  Data*/
             Console.WriteLine("Deseas Insertar los datos del pokemon en la Base de Datos?");
             Console.WriteLine("Si = 1 , No = 0");
-             int options = Convert.ToInt32(Console.ReadLine());
+            int options = Convert.ToInt32(Console.ReadLine());
             if (options == 1)
             {
-                insertPokemon = $"INSERT INTO Pokemons({pkmInserted.Name},{pkmInserted.pkmnDescription},{pkmInserted.TypeId},{pkmInserted.SkillId},{pkmInserted.pkmnMoves[0]})" +
-                $"\r\nVALUES ('Swampert','it is said to sing plaintively as it seeks what few others of its kind still remain. ',\r\n  (SELECT ID FROM Types WHERE ID ={pkmInserted.TypeId}),(SELECT ID FROM Skills WHERE ID = {pkmInserted.SkillId}),(SELECT ID FROM Moves WHERE ID = {pkmInserted.pkmnMoves[0]}))";
+                insertPokemon = $"INSERT INTO Pokemons (Name,Description,TypeId,SkillId,MoveId)" +
+                $" \r\n VALUES ({pkmInserted.Name}, {pkmInserted.pkmnDescription}, {pkmInserted.TypeId.Id},{pkmInserted.SkillId.Id}, {pkmInserted.pkmnMoves[0].ID})";
                 /*Pokemon Data To Data Base*/
                 insert = new SqlCommand(insertPokemon,dbcn);
-                adapter.InsertCommand = new SqlCommand(insertPokemon,dbcn);
-                adapter.InsertCommand.ExecuteNonQuery();
-                
+                insert.ExecuteNonQuery();
                /*End Of Data Transmission*/
             }
             else 
             {
-                Console.WriteLine("Wrong Chosen Number!!");
-                
+                Console.WriteLine("Wrong Chosen Number!!"); 
             }
             Console.WriteLine("Eligir el pokemon deseado: ");
             int pokemonSeleccionado = Convert.ToInt32(Console.ReadLine());
