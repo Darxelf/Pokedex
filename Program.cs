@@ -29,19 +29,29 @@ namespace Pokedex
             SqlDataReader reader;
             string sql= "";
             dbcn.Open();
-            sql = "SELECT ID,Name,Description FROM Pokemons";
+            sql = "SELECT * FROM Pokemons";
             adapter = new SqlDataAdapter(sql,dbcn);
             DataSet Pokemons = new DataSet();
             adapter.Fill(Pokemons,"Pokemons");
             Console.WriteLine("Lista de Pokemones:");
+            Pokemon pkmInserted = new Pokemon();
             foreach (DataRow pokemonRows in Pokemons.Tables["Pokemons"].Rows)
             {
+                 pkmInserted = new Pokemon();
                 Console.WriteLine(pokemonRows["ID"] + "--" + pokemonRows["Name"]);
+                pkmInserted.Id = Convert.ToInt32(pokemonRows["ID"]);    
+                pkmInserted.Name = Convert.ToString(pokemonRows["Name"]);
+                pkmInserted.pkmnDescription = Convert.ToString(pokemonRows["Description"]);
+                pkmInserted.TypeId.Id = Convert.ToInt32(pokemonRows["TypeId"]);
+                pkmInserted.SkillId.Id = Convert.ToInt32(pokemonRows["SkillId"]);
+                pkmInserted.pkmnMoves[0].ID = Convert.ToInt32(pokemonRows["MoveId"]);
+                pkmInserted.Darpresentacion();
+                Console.WriteLine("TEST!");
             };
             /*End DataBase Consult*/
             /*Pokemon Creation  Data*/
             Console.WriteLine("<---Creacion del Pokemon--->");
-            Pokemon pkmInserted = new Pokemon();
+            
             Console.WriteLine("Insert Pokemon Name");
             pkmInserted.Name = Console.ReadLine();
             Console.WriteLine("Insert Pokemon Description:");
