@@ -6,6 +6,7 @@ using System.Data;
 using Microsoft.Identity.Client;
 using System.IdentityModel.Tokens.Jwt;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 
 namespace Pokedex
 {
@@ -42,18 +43,22 @@ namespace Pokedex
                 pkmInserted.Id = Convert.ToInt32(pokemonRows["ID"]);    
                 pkmInserted.Name = Convert.ToString(pokemonRows["Name"]);
                 pkmInserted.pkmnDescription = Convert.ToString(pokemonRows["Description"]);
-                pkmInserted.TypeId.Id = Convert.ToInt32(pokemonRows["TypeId"]);
-                pkmInserted.SkillId.Id = Convert.ToInt32(pokemonRows["SkillId"]);
-                pkmInserted.pkmnMoves[0].ID = Convert.ToInt32(pokemonRows["MoveId"]);
+                pkmInserted.TypeId = new Types { Id = Convert.ToInt32(pokemonRows["TypeId"])};
+                pkmInserted.SkillId = new Skills {Id= Convert.ToInt32(pokemonRows["SkillId"]) };
+                pkmInserted.pkmnMoves  = new Moves[]
+                { 
+                    new Moves {ID = Convert.ToInt32(pokemonRows["MoveId"])} 
+                };
                 pkmInserted.Darpresentacion();
                 Console.WriteLine("TEST!");
+                Console.ReadKey();
             };
             /*End DataBase Consult*/
             /*Pokemon Creation  Data*/
             Console.WriteLine("<---Creacion del Pokemon--->");
-            
             Console.WriteLine("Insert Pokemon Name");
             pkmInserted.Name = Console.ReadLine();
+            TextValidation(pkmInserted.Name);
             Console.WriteLine("Insert Pokemon Description:");
             pkmInserted.pkmnDescription = Console.ReadLine();
             Console.WriteLine("Insert Pokemon Type:");
@@ -100,6 +105,39 @@ namespace Pokedex
             //dbcn.Close();
 
             Console.ReadKey();
+
+             void TextValidation(string keyInformation)
+            {
+                 //keyInformation = pkmInserted.Name;
+               string  text = @"[a-z]";
+                for (int i = 0; i < keyInformation.Length; i++)
+                {
+                    if (Regex.IsMatch(keyInformation,text))
+                    {
+                        Console.WriteLine("Datos Correctos!");
+                    }
+                    else 
+                    {
+                        Console.WriteLine("Datos Incorrectos!");
+                        break;
+                    }
+                }
+            }
+            void NumberValidation(string numberPressed)
+            {
+                string number = @"[0-9]";
+                if (Regex.IsMatch(numberPressed,number))
+                {
+                    Console.WriteLine("Datos Correctos!");
+                }
+                else
+                {
+                    Console.WriteLine("Datos Incorrectos!");
+                }
+            }
+
         }
+      
+
     }
 }

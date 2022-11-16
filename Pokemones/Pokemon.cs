@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Pokedex.Pokemones
 {
@@ -23,6 +24,7 @@ namespace Pokedex.Pokemones
             Console.WriteLine(pkmnMoves[0].ID);
                 //Console.WriteLine(Type);
             }
+
     }
 }
 //List<Pokemon> DatosPokemon = new List<Pokemon>()
