@@ -83,8 +83,8 @@ namespace Pokedex
             if (options == 1)
             {
                 dbcn.Open();
-                insertPokemon = $"INSERT INTO Pokemons ([Name],[Description],[TypeId],[SkillId],[MoveId])" +
-                $"VALUES ({pkmInserted.Name}, {pkmInserted.pkmnDescription}, {pkmInserted.TypeId.Id},{pkmInserted.SkillId.Id}, {pkmInserted.pkmnMoves[0].ID})";
+                insertPokemon = $" INSERT INTO Pokemons ([Name],[Description],[TypeId],[SkillId],[MoveId])" +
+                $" VALUES ('{pkmInserted.Name}','{pkmInserted.pkmnDescription}', {pkmInserted.TypeId.Id},{pkmInserted.SkillId.Id}, {pkmInserted.pkmnMoves[0].ID})";
                 /*Pokemon Data To Data Base*/
                 insert = new SqlCommand(insertPokemon,dbcn);
                 insert.ExecuteNonQuery();
