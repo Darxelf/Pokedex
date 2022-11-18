@@ -54,22 +54,27 @@ namespace Pokedex
                 Console.ReadKey();
             };
             /*End DataBase Consult*/
+            dbcn.Close();
             /*Pokemon Creation  Data*/
             Console.WriteLine("<---Creacion del Pokemon--->");
             Console.WriteLine("Insert Pokemon Name");
             pkmInserted.Name = Console.ReadLine();
-            TextValidation(pkmInserted.Name);
+            pkmInserted.TextValidation(pkmInserted.Name);
             Console.WriteLine("Insert Pokemon Description:");
             pkmInserted.pkmnDescription = Console.ReadLine();
+            pkmInserted.TextValidation(pkmInserted.pkmnDescription);
             Console.WriteLine("Insert Pokemon Type:");
             pkmInserted.TypeId = new Types{Id = Convert.ToInt32(Console.ReadLine())};
+            pkmInserted.NumberValidation(Convert.ToString(pkmInserted.TypeId.Id));
             Console.WriteLine("Insert Pokemon Skill:");
             pkmInserted.SkillId = new Skills {Id = Convert.ToInt32(Console.ReadLine())};
+            pkmInserted.NumberValidation(Convert.ToString(pkmInserted.SkillId.Id));
             Console.WriteLine("Insert Pokemon Move: ");
             pkmInserted.pkmnMoves = new Moves[]
             { 
                 new Moves{ID = Convert.ToInt32(Console.ReadLine())}
             };
+            pkmInserted.NumberValidation(Convert.ToString(pkmInserted.pkmnMoves[0]));
             pkmInserted.Darpresentacion();
             /*End Creation  Data*/
             Console.WriteLine("Deseas Insertar los datos del pokemon en la Base de Datos?");
@@ -77,12 +82,14 @@ namespace Pokedex
             int options = Convert.ToInt32(Console.ReadLine());
             if (options == 1)
             {
-                insertPokemon = $"INSERT INTO Pokemons (Name,Description,TypeId,SkillId,MoveId)" +
-                $" \r\n VALUES ({pkmInserted.Name}, {pkmInserted.pkmnDescription}, {pkmInserted.TypeId.Id},{pkmInserted.SkillId.Id}, {pkmInserted.pkmnMoves[0].ID})";
+                dbcn.Open();
+                insertPokemon = $"INSERT INTO Pokemons ([Name],[Description],[TypeId],[SkillId],[MoveId])" +
+                $"VALUES ({pkmInserted.Name}, {pkmInserted.pkmnDescription}, {pkmInserted.TypeId.Id},{pkmInserted.SkillId.Id}, {pkmInserted.pkmnMoves[0].ID})";
                 /*Pokemon Data To Data Base*/
                 insert = new SqlCommand(insertPokemon,dbcn);
                 insert.ExecuteNonQuery();
-               /*End Of Data Transmission*/
+                /*End Of Data Transmission*/
+                dbcn.Close();
             }
             else 
             {
@@ -106,35 +113,8 @@ namespace Pokedex
 
             Console.ReadKey();
 
-             void TextValidation(string keyInformation)
-            {
-                 //keyInformation = pkmInserted.Name;
-               string  text = @"[a-z]";
-                for (int i = 0; i < keyInformation.Length; i++)
-                {
-                    if (Regex.IsMatch(keyInformation,text))
-                    {
-                        Console.WriteLine("Datos Correctos!");
-                    }
-                    else 
-                    {
-                        Console.WriteLine("Datos Incorrectos!");
-                        break;
-                    }
-                }
-            }
-            void NumberValidation(string numberPressed)
-            {
-                string number = @"[0-9]";
-                if (Regex.IsMatch(numberPressed,number))
-                {
-                    Console.WriteLine("Datos Correctos!");
-                }
-                else
-                {
-                    Console.WriteLine("Datos Incorrectos!");
-                }
-            }
+           
+           
 
         }
       
