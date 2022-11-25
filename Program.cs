@@ -7,6 +7,7 @@ using Microsoft.Identity.Client;
 using System.IdentityModel.Tokens.Jwt;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
+using System.Globalization;
 
 namespace Pokedex
 {
@@ -15,6 +16,9 @@ namespace Pokedex
         static void Main(string[] args)
         {
             /*SQL Connection String Information*/
+         
+            string keyBoardData = "";
+
             string connectionString,insertString = "";
             connectionString = @"Server=DESKTOP-CCJ8U8S\MSSQLSERVER02;Database=Pokedex;
                                     Trusted_Connection = True";
@@ -56,25 +60,32 @@ namespace Pokedex
             /*End DataBase Consult*/
             dbcn.Close();
             /*Pokemon Creation  Data*/
+            Validators Validate = new Validators();
             Console.WriteLine("<---Creacion del Pokemon--->");
             Console.WriteLine("Insert Pokemon Name");
-            pkmInserted.Name = Console.ReadLine();
-            pkmInserted.TextValidation(pkmInserted.Name);
+            keyBoardData = Console.ReadLine();
+            Validate.TextValidation(keyBoardData);
+            pkmInserted.Name = keyBoardData;
             Console.WriteLine("Insert Pokemon Description:");
-            pkmInserted.pkmnDescription = Console.ReadLine();
-            pkmInserted.TextValidation(pkmInserted.pkmnDescription);
+            keyBoardData = Console.ReadLine();
+            Validate.TextValidation(keyBoardData);
+            pkmInserted.pkmnDescription = keyBoardData;
             Console.WriteLine("Insert Pokemon Type:");
-            pkmInserted.TypeId = new Types{Id = Convert.ToInt32(Console.ReadLine())};
-            pkmInserted.NumberValidation(Convert.ToString(pkmInserted.TypeId.Id));
+            keyBoardData = Console.ReadLine();
+            Validate.NumberValidation(keyBoardData);
+            pkmInserted.TypeId = new Types{Id = Convert.ToInt32(keyBoardData)};
             Console.WriteLine("Insert Pokemon Skill:");
-            pkmInserted.SkillId = new Skills {Id = Convert.ToInt32(Console.ReadLine())};
-            pkmInserted.NumberValidation(Convert.ToString(pkmInserted.SkillId.Id));
+            keyBoardData = Console.ReadLine();
+            Validate.NumberValidation(keyBoardData);
+            pkmInserted.SkillId = new Skills {Id = Convert.ToInt32(keyBoardData)};
             Console.WriteLine("Insert Pokemon Move: ");
+            keyBoardData = Console.ReadLine();
+            Validate.NumberValidation(keyBoardData);
             pkmInserted.pkmnMoves = new Moves[]
             { 
-                new Moves{ID = Convert.ToInt32(Console.ReadLine())}
+                new Moves{ID = Convert.ToInt32(keyBoardData)}
             };
-            pkmInserted.NumberValidation(Convert.ToString(pkmInserted.pkmnMoves[0]));
+            //pkmInserted.NumberValidation(Convert.ToString(pkmInserted.pkmnMoves[0]));
             pkmInserted.Darpresentacion();
             /*End Creation  Data*/
             Console.WriteLine("Deseas Insertar los datos del pokemon en la Base de Datos?");
@@ -96,6 +107,7 @@ namespace Pokedex
                 Console.WriteLine("Wrong Chosen Number!!"); 
             }
             Console.WriteLine("Eligir el pokemon deseado: ");
+
             int pokemonSeleccionado = Convert.ToInt32(Console.ReadLine());
             //DataRow seleccionado = Pokemons.Tables["Pokemons"].Rows.Contains(pokemonSeleccionado);
             //dbcn.Open();

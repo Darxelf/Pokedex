@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Pokedex.Pokemones
 {
-    internal class Types
+    public class Types
     {
         public int Id {get;set;}
         public string Name {get;set;}

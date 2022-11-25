@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace Pokedex.Pokemones
 {
-    class Pokemon
+  public class Pokemon
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -25,35 +25,7 @@ namespace Pokedex.Pokemones
                 //Console.WriteLine(Type);
             }
 
-      public  void TextValidation(string keyInformation)
-        {
-            //keyInformation = pkmInserted.Name;
-            string text = @"[a-z]";
-            //for (int i = 0; i < keyInformation.Length; i++)
-            //{
-                if (Regex.IsMatch(keyInformation, text))
-                {
-                    Console.WriteLine("Datos Correctos!");
-                }
-                else
-                {
-                    Console.WriteLine("Datos Incorrectos!");
-                    
-                }
-            //}
-        }
-     public  void NumberValidation(string numberPressed)
-        {
-            string number = @"[0-9]";
-            if (Regex.IsMatch(numberPressed, number))
-            {
-                Console.WriteLine("Datos Correctos!");
-            }
-            else
-            {
-                Console.WriteLine("Datos Incorrectos!");
-            }
-        }
+      
     }
 }
 //List<Pokemon> DatosPokemon = new List<Pokemon>()
