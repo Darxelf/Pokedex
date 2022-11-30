@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace Pokedex.Pokemones
 {
-  public  class Validators :Pokemon
+  public  class Validators
     {
         public string TextValidation(string keyInformation)
         {

@@ -17,11 +17,11 @@ namespace Pokedex.Pokemones
        
         public void Darpresentacion ()
             {
-                Console.WriteLine(Name);
-                Console.WriteLine(pkmnDescription);
-                Console.WriteLine(TypeId.Id);
-                Console.WriteLine(SkillId.Id);
-            Console.WriteLine(pkmnMoves[0].ID);
+                Console.WriteLine("Name: "+Name);
+                Console.WriteLine("Description: "+pkmnDescription);
+                Console.WriteLine("TypeId: "+TypeId.Id);
+                Console.WriteLine("SkillId: "+SkillId.Id);
+            Console.WriteLine("Moves: "+pkmnMoves[0].ID);
                 //Console.WriteLine(Type);
             }
 

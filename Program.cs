@@ -18,9 +18,7 @@ namespace Pokedex
             /*SQL Connection String Information*/
          
             string keyBoardData = "";
-
-            string connectionString,insertString = "";
-            connectionString = @"Server=DESKTOP-CCJ8U8S\MSSQLSERVER02;Database=Pokedex;
+            string connectionString  = @"Server=DESKTOP-CCJ8U8S\MSSQLSERVER02;Database=Pokedex;
                                     Trusted_Connection = True";
             SqlConnection dbcn = new SqlConnection(connectionString);
             dbcn.Open();
@@ -42,8 +40,8 @@ namespace Pokedex
             Pokemon pkmInserted = new Pokemon();
             foreach (DataRow pokemonRows in Pokemons.Tables["Pokemons"].Rows)
             {
-                 pkmInserted = new Pokemon();
-                Console.WriteLine(pokemonRows["ID"] + "--" + pokemonRows["Name"]);
+                 //pkmInserted = new Pokemon();
+                //Console.WriteLine(pokemonRows["ID"] + "--" + pokemonRows["Name"]);
                 pkmInserted.Id = Convert.ToInt32(pokemonRows["ID"]);    
                 pkmInserted.Name = Convert.ToString(pokemonRows["Name"]);
                 pkmInserted.pkmnDescription = Convert.ToString(pokemonRows["Description"]);
@@ -54,7 +52,6 @@ namespace Pokedex
                     new Moves {ID = Convert.ToInt32(pokemonRows["MoveId"])} 
                 };
                 pkmInserted.Darpresentacion();
-                Console.WriteLine("TEST!");
                 Console.ReadKey();
             };
             /*End DataBase Consult*/
