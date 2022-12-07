@@ -17,6 +17,7 @@ namespace Pokedex.Pokemones
        
         public void Darpresentacion ()
             {
+                Console.WriteLine("Id:"+ Id);
                 Console.WriteLine("Name: "+Name);
                 Console.WriteLine("Description: "+pkmnDescription);
                 Console.WriteLine("TypeId: "+TypeId.Id);
