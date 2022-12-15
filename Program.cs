@@ -17,40 +17,33 @@ namespace Pokedex
     {
         static void Main(string[] args)
         {
-            string keyBoardData = "";
-            DataBaseConnection dbcn = new DataBaseConnection();
+            string inputData = "";
+            string sql = "";
+            int pokemonSeleccionado = 0;
+            DataBaseManipulaton dbcn = new DataBaseManipulaton();
             ReadPokemonData read = new ReadPokemonData(); 
             Pokemon PokemonData = new Pokemon ();
             InsertPokemonData pokemonInfo = new InsertPokemonData ();
             /*SQL String End*/
             /*SQL Consult Data From DataBase*/
-            //SqlCommand insert;
-            //string insertPokemon = "";
             SqlDataAdapter adapter = new SqlDataAdapter();
-            string sql= "";
-           dbcn.OpenConnection();
+            dbcn.OpenConnection();
             sql = "SELECT * FROM Pokemons";
             read.ReadData(sql);
             read.DataFiller();
             /*End DataBase Consult*/
             dbcn.CloseConnection();
             /*Pokemon Creation  Data*/
-            Validators Validate = new Validators();
-            pokemonInfo.CreatePokemon(keyBoardData);
+           // Validators Validate = new Validators();
+            pokemonInfo.CreatePokemon(inputData);
             /*End Creation  Data*/
             /*Insert Pokemon Data*/
             pokemonInfo.InsertPokemon();
             /*End of Insert*/
             Console.WriteLine("Eligir el pokemon deseado: ");
-            int pokemonSeleccionado = Convert.ToInt32(Console.ReadLine());
+            pokemonSeleccionado = Convert.ToInt32(Console.ReadLine());
             read.ShowData(pokemonSeleccionado);
             Console.ReadKey();
-
-
-
-
         }
-      
-
     }
 }

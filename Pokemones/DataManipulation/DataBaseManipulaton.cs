@@ -5,24 +5,24 @@ using System.Text;
 
 namespace Pokedex.Pokemones.DataManipulation
 {
-   public  class DataBaseConnection
+   public  class DataBaseManipulaton
     {  
         public  string ConnectionString;
-       public SqlConnection connection;   
+       public SqlConnection Connection;   
      public  void OpenConnection ()
         {
             ConnectionString = @"Server=DESKTOP-CCJ8U8S\MSSQLSERVER02;Database=Pokedex;
                                     Trusted_Connection = True";
 
-            connection = new SqlConnection(ConnectionString);
-            connection.Open();
+            Connection = new SqlConnection(ConnectionString);
+            Connection.Open();
             Console.WriteLine("Conexion Exitosa!");
             
         }
 
         public void CloseConnection() 
         {
-            connection.Close();
+            Connection.Close();
         }
 
     }

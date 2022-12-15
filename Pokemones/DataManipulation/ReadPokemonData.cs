@@ -13,45 +13,45 @@ namespace Pokedex.Pokemones.DataManipulation
     public class ReadPokemonData
     {
         SqlDataAdapter adapter;
-        DataBaseConnection dbcn;
-        DataSet Pokemons;
-        Pokemon PokemonData = new Pokemon();
+        DataBaseManipulaton dbcn;
+        DataSet pokemons;
+        Pokemon pokemonData = new Pokemon();
         //DataBaseConnection dbcc;
-        public void ReadData(string SqlQuery) 
+        public void ReadData(string sqlQuery) 
         {
-            Pokemons = new DataSet();
-            dbcn = new DataBaseConnection();
+            pokemons = new DataSet();
+            dbcn = new DataBaseManipulaton();
             dbcn.OpenConnection();
-            adapter = new SqlDataAdapter(SqlQuery,dbcn.ConnectionString);
-            adapter.Fill(Pokemons,"Pokemons");
+            adapter = new SqlDataAdapter(sqlQuery,dbcn.ConnectionString);
+            adapter.Fill(pokemons,"Pokemons");
             Console.WriteLine("Lista de Pokemones:");
 
 
         }
         public void DataFiller() 
         {
-            foreach (DataRow pkmnRow in Pokemons.Tables["Pokemons"].Rows)
+            foreach (DataRow pokemonRow in pokemons.Tables["Pokemons"].Rows)
             {
-                PokemonData.Id = Convert.ToInt32(pkmnRow["ID"]);
-                PokemonData.Name = Convert.ToString(pkmnRow["Name"]);
-                PokemonData.pkmnDescription = Convert.ToString(pkmnRow["Description"]);
-                PokemonData.TypeId = new Types {Id = Convert.ToInt32(pkmnRow["TypeId"]) };
-                PokemonData.SkillId = new Skills {Id= Convert.ToInt32(pkmnRow["SkillId"]) };
-                PokemonData.pkmnMoves = new Moves[] 
+                pokemonData.Id = Convert.ToInt32(pokemonRow["ID"]);
+                pokemonData.Name = Convert.ToString(pokemonRow["Name"]);
+                pokemonData.Description = Convert.ToString(pokemonRow["Description"]);
+                pokemonData.Type = new Types {Id = Convert.ToInt32(pokemonRow["TypeId"]) };
+                pokemonData.Skill = new Skills {Id= Convert.ToInt32(pokemonRow["SkillId"]) };
+                pokemonData.Moves = new Moves[] 
                 {
                     new Moves
                     {
-                        ID =Convert.ToInt32(pkmnRow["MoveId"])
+                        Id =Convert.ToInt32(pokemonRow["MoveId"])
                     }
                 };
-                PokemonData.Darpresentacion();
+                pokemonData.Darpresentacion();
             }
         }
 
         public void ShowData(int pokemonSeleccionado) 
         {
 
-            foreach (DataRow pokemonRows in Pokemons.Tables["Pokemons"].Rows)
+            foreach (DataRow pokemonRows in pokemons.Tables["Pokemons"].Rows)
             {
                 if (pokemonSeleccionado == Convert.ToInt16(pokemonRows["ID"]))
                 {

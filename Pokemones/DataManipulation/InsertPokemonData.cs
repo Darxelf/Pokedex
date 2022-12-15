@@ -10,9 +10,9 @@ namespace Pokedex.Pokemones.Data_Manipulation
 {
     public class InsertPokemonData
     {
-        Pokemon PokemonData = new Pokemon();
-        Validators Validate = new Validators();
-        DataBaseConnection dbcn = new DataBaseConnection();
+        Pokemon pokemonData = new Pokemon();
+        Validators validate = new Validators();
+        DataBaseManipulaton dbcn = new DataBaseManipulaton();
         SqlCommand insert;
         string insertPokemon = "";
         public void CreatePokemon(string pokemonInfo) 
@@ -20,28 +20,28 @@ namespace Pokedex.Pokemones.Data_Manipulation
             Console.WriteLine("<---Creacion del Pokemon--->");
             Console.WriteLine("Insert Pokemon Name");
             pokemonInfo = Console.ReadLine();
-            Validate.TextValidation(pokemonInfo);
-            PokemonData.Name = pokemonInfo;
+            validate.TextValidation(pokemonInfo);
+            pokemonData.Name = pokemonInfo;
             Console.WriteLine("Insert Pokemon Description:");
             pokemonInfo = Console.ReadLine();
-            Validate.TextValidation(pokemonInfo);
-            PokemonData.pkmnDescription = pokemonInfo;
+            validate.TextValidation(pokemonInfo);
+            pokemonData.Description = pokemonInfo;
             Console.WriteLine("Insert Pokemon Type:");
             pokemonInfo = Console.ReadLine();
-            Validate.NumberValidation(pokemonInfo);
-            PokemonData.TypeId = new Types { Id = Convert.ToInt32(pokemonInfo)};
+            validate.NumberValidation(pokemonInfo);
+            pokemonData.Type = new Types { Id = Convert.ToInt32(pokemonInfo)};
             Console.WriteLine("Insert Pokemon Skill:");
             pokemonInfo = Console.ReadLine();
-            Validate.NumberValidation(pokemonInfo);
-            PokemonData.SkillId = new Skills { Id = Convert.ToInt32(pokemonInfo)};
+            validate.NumberValidation(pokemonInfo);
+            pokemonData.Skill = new Skills { Id = Convert.ToInt32(pokemonInfo)};
             Console.WriteLine("Insert Pokemon Move: ");
             pokemonInfo = Console.ReadLine();
-            Validate.NumberValidation(pokemonInfo);
-            PokemonData.pkmnMoves = new Moves[]
+            validate.NumberValidation(pokemonInfo);
+            pokemonData.Moves = new Moves[]
             {
-                new Moves{ID = Convert.ToInt32(pokemonInfo[0])}
+                new Moves{Id = Convert.ToInt32(pokemonInfo[0])}
             };
-            PokemonData.Darpresentacion();
+            pokemonData.Darpresentacion();
         }
         public void InsertPokemon( ) 
         {
@@ -52,9 +52,9 @@ namespace Pokedex.Pokemones.Data_Manipulation
             {
                 dbcn.OpenConnection();
                 insertPokemon = $" INSERT INTO Pokemons ([Name],[Description],[TypeId],[SkillId],[MoveId])" +
-                $" VALUES ('{PokemonData.Name}','{PokemonData.pkmnDescription}', {PokemonData.TypeId.Id},{PokemonData.SkillId.Id}, {PokemonData.pkmnMoves[0].ID})";
+                $" VALUES ('{pokemonData.Name}','{pokemonData.Description}', {pokemonData.Type.Id},{pokemonData.Skill.Id}, {pokemonData.Moves[0].Id})";
                 /*Pokemon Data To Data Base*/
-                insert = new SqlCommand(insertPokemon, dbcn.connection);
+                insert = new SqlCommand(insertPokemon, dbcn.Connection);
                 insert.ExecuteNonQuery();
                 /*End Of Data Transmission*/
                 dbcn.CloseConnection();
