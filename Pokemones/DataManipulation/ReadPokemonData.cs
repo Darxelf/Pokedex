@@ -12,21 +12,19 @@ namespace Pokedex.Pokemones.DataManipulation
 {
     public class ReadPokemonData
     {
+        private string sqlString = "SELECT * FROM Pokemons";
         SqlDataAdapter adapter;
-        DataBaseManipulaton dbcn;
-        DataSet pokemons;
+        DataBaseManipulaton dbcn = new DataBaseManipulaton();
+        DataSet pokemons = new DataSet();
         Pokemon pokemonData = new Pokemon();
+        
         //DataBaseConnection dbcc;
-        public void ReadData(string sqlQuery) 
+        public void ReadData() 
         {
-            pokemons = new DataSet();
-            dbcn = new DataBaseManipulaton();
             dbcn.OpenConnection();
-            adapter = new SqlDataAdapter(sqlQuery,dbcn.ConnectionString);
+            adapter = new SqlDataAdapter(sqlString,dbcn.ConnectionInformation());
             adapter.Fill(pokemons,"Pokemons");
             Console.WriteLine("Lista de Pokemones:");
-
-
         }
         public void DataFiller() 
         {

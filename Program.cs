@@ -18,18 +18,18 @@ namespace Pokedex
         static void Main(string[] args)
         {
             string inputData = "";
-            string sql = "";
+            //string sql = "";
             int pokemonSeleccionado = 0;
             DataBaseManipulaton dbcn = new DataBaseManipulaton();
             ReadPokemonData read = new ReadPokemonData(); 
-            Pokemon PokemonData = new Pokemon ();
+            //Pokemon PokemonData = new Pokemon ();
             InsertPokemonData pokemonInfo = new InsertPokemonData ();
             /*SQL String End*/
             /*SQL Consult Data From DataBase*/
             SqlDataAdapter adapter = new SqlDataAdapter();
             dbcn.OpenConnection();
-            sql = "SELECT * FROM Pokemons";
-            read.ReadData(sql);
+            //sql = "SELECT * FROM Pokemons";
+            read.ReadData();
             read.DataFiller();
             /*End DataBase Consult*/
             dbcn.CloseConnection();
