@@ -15,27 +15,25 @@ namespace Pokedex.Pokemones.DataManipulation
         private string sqlString = "SELECT * FROM Pokemons";
         SqlDataAdapter adapter;
         DataBaseManipulaton dbcn = new DataBaseManipulaton();
+        //SqlConnection dbcn = new SqlConnection();
         DataSet pokemons = new DataSet();
         Pokemon pokemonData = new Pokemon();
         
         //DataBaseConnection dbcc;
         public void ReadData() 
         {
-            dbcn.OpenConnection();
-            adapter = new SqlDataAdapter(sqlString,dbcn.ConnectionInformation());
+            //dbcn.OpenConnection();
+            adapter = new SqlDataAdapter(sqlString, dbcn.Connection);
             adapter.Fill(pokemons,"Pokemons");
             Console.WriteLine("Lista de Pokemones:");
-        }
-        public void DataFiller() 
-        {
             foreach (DataRow pokemonRow in pokemons.Tables["Pokemons"].Rows)
             {
                 pokemonData.Id = Convert.ToInt32(pokemonRow["ID"]);
                 pokemonData.Name = Convert.ToString(pokemonRow["Name"]);
                 pokemonData.Description = Convert.ToString(pokemonRow["Description"]);
-                pokemonData.Type = new Types {Id = Convert.ToInt32(pokemonRow["TypeId"]) };
-                pokemonData.Skill = new Skills {Id= Convert.ToInt32(pokemonRow["SkillId"]) };
-                pokemonData.Moves = new Moves[] 
+                pokemonData.Type = new Types { Id = Convert.ToInt32(pokemonRow["TypeId"]) };
+                pokemonData.Skill = new Skills { Id = Convert.ToInt32(pokemonRow["SkillId"]) };
+                pokemonData.Moves = new Moves[]
                 {
                     new Moves
                     {
@@ -45,7 +43,6 @@ namespace Pokedex.Pokemones.DataManipulation
                 pokemonData.Darpresentacion();
             }
         }
-
         public void ShowData(int pokemonSeleccionado) 
         {
 

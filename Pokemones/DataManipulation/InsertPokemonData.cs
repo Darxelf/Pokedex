@@ -54,7 +54,7 @@ namespace Pokedex.Pokemones.Data_Manipulation
                 insertPokemon = $" INSERT INTO Pokemons ([Name],[Description],[TypeId],[SkillId],[MoveId])" +
                 $" VALUES ('{pokemonData.Name}','{pokemonData.Description}', {pokemonData.Type.Id},{pokemonData.Skill.Id}, {pokemonData.Moves[0].Id})";
                 /*Pokemon Data To Data Base*/
-                insert = new SqlCommand(insertPokemon, dbcn.Connection);
+                insert = new SqlCommand(insertPokemon,dbcn.Connection);
                 insert.ExecuteNonQuery();
                 /*End Of Data Transmission*/
                 dbcn.CloseConnection();

@@ -27,10 +27,10 @@ namespace Pokedex
             /*SQL String End*/
             /*SQL Consult Data From DataBase*/
             SqlDataAdapter adapter = new SqlDataAdapter();
-            dbcn.OpenConnection();
+            //dbcn.OpenConnection();
             //sql = "SELECT * FROM Pokemons";
             read.ReadData();
-            read.DataFiller();
+            //read.DataFiller();
             /*End DataBase Consult*/
             dbcn.CloseConnection();
             /*Pokemon Creation  Data*/

@@ -9,15 +9,15 @@ namespace Pokedex.Pokemones.DataManipulation
     {
         private string ConnectionString = @"Server=DESKTOP-CCJ8U8S\MSSQLSERVER02;Database=Pokedex;
                                     Trusted_Connection = True";
-        private SqlConnection Connection;
+        public SqlConnection Connection;
 
-        public string ConnectionInformation()
-        {
-            return ConnectionString;
-        }
-       public  void OpenConnection ()
+        public DataBaseManipulaton() 
         {
             Connection = new SqlConnection(ConnectionString);
+        }
+
+        public void OpenConnection()
+        {
             Connection.Open();
             Console.WriteLine("Conexion Exitosa!");
         }
