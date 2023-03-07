@@ -17,13 +17,13 @@ namespace Pokedex
     {
         static void Main(string[] args)
         {
-            string inputData = "";
+            //string inputData = "";
             //string sql = "";
             int pokemonSeleccionado = 0;
             DataBaseManipulaton dbcn = new DataBaseManipulaton();
             ReadPokemonData read = new ReadPokemonData(); 
             //Pokemon PokemonData = new Pokemon ();
-            InsertPokemonData pokemonInfo = new InsertPokemonData ();
+            DataBaseManipulaton pokemonInfo = new DataBaseManipulaton ();
             /*SQL String End*/
             /*SQL Consult Data From DataBase*/
             SqlDataAdapter adapter = new SqlDataAdapter();
@@ -32,10 +32,10 @@ namespace Pokedex
             read.ReadData();
             //read.DataFiller();
             /*End DataBase Consult*/
-            dbcn.CloseConnection();
+            //dbcn.CloseConnection();//////////////this
             /*Pokemon Creation  Data*/
            // Validators Validate = new Validators();
-            pokemonInfo.CreatePokemon(inputData);
+            pokemonInfo.CreatePokemon();
             /*End Creation  Data*/
             /*Insert Pokemon Data*/
             pokemonInfo.InsertPokemon();

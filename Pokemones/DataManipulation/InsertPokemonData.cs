@@ -50,14 +50,14 @@ namespace Pokedex.Pokemones.Data_Manipulation
             int options = Convert.ToInt32(Console.ReadLine());
             if (options == 1)
             {
-                dbcn.OpenConnection();
+                //dbcn.OpenConnection();
                 insertPokemon = $" INSERT INTO Pokemons ([Name],[Description],[TypeId],[SkillId],[MoveId])" +
                 $" VALUES ('{pokemonData.Name}','{pokemonData.Description}', {pokemonData.Type.Id},{pokemonData.Skill.Id}, {pokemonData.Moves[0].Id})";
                 /*Pokemon Data To Data Base*/
                 insert = new SqlCommand(insertPokemon,dbcn.Connection);
                 insert.ExecuteNonQuery();
                 /*End Of Data Transmission*/
-                dbcn.CloseConnection();
+                //    dbcn.CloseConnection();
             }
             else
             {
