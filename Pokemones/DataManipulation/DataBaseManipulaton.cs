@@ -13,32 +13,19 @@ namespace Pokedex.Pokemones.DataManipulation
         public SqlConnection Connection;
         Pokemon pokemonData = new Pokemon();
         Validators validate = new Validators();
-        //DataBaseManipulaton dbcn = new DataBaseManipulaton();
         SqlCommand insert;
         string insertPokemon = "";
         string pokemonInfo = "";
         private string sqlString = "SELECT * FROM Pokemons";
         SqlDataAdapter adapter;
-        //DataBaseManipulaton dbcn = new DataBaseManipulaton();
-        //SqlConnection dbcn = new SqlConnection();
         DataSet pokemons = new DataSet();
-        //Pokemon pokemonData = new Pokemon();
+
         public DataBaseManipulaton() 
         {
             Connection = new SqlConnection(ConnectionString);
             
         }
 
-        //public void OpenConnection()
-        //{
-        //    Connection.Open();
-        //    Console.WriteLine("Conexion Exitosa!");
-        //}
-
-        //public void CloseConnection()
-        //{
-        //    Connection.Close();
-        //}
 
         public void CreatePokemon()
         {
@@ -126,6 +113,7 @@ namespace Pokedex.Pokemones.DataManipulation
                 if (pokemonSeleccionado == Convert.ToInt16(pokemonRows["ID"]))
                 {
                     Console.WriteLine(pokemonRows["ID"] + "--" + pokemonRows["Name"] + "--" + pokemonRows["Description"]);
+                    Console.WriteLine(pokemonRows["TypeId"]+ "--" + pokemonRows["SkillId"]+ "--" + pokemonRows["MoveId"]);
                 }
             }
         }

@@ -7,10 +7,11 @@ using System.Text;
 
 namespace Pokedex.Pokemones
 {
-    public class userInterface
+    public class UserInterface
     {
         private int opcionPokedex;
         private DataBaseManipulaton opcion = new DataBaseManipulaton();
+        int pokemonSeleccionado = 0; 
         public void Interface() 
         {
             Console.WriteLine("--------Pokedex--------");
@@ -20,8 +21,16 @@ namespace Pokedex.Pokemones
             if (opcionPokedex == 1)
             {
                 opcion.ReadData();
+                Console.WriteLine("Cual Pokemon deseas Elegir? ");
+                pokemonSeleccionado = Convert.ToInt32(Console.ReadLine());
+                opcion.ShowData(pokemonSeleccionado);
+                Console.ReadKey();
             }
-            else { }
+            else 
+            {
+                opcion.CreatePokemon();
+                opcion.InsertPokemon();
+            }
         }
       
            
