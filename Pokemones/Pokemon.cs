@@ -15,9 +15,9 @@ namespace Pokedex.Pokemones
         public Skills Skill { get; set; }
         public Moves[] Moves = new Moves[1];
        
-        public void Darpresentacion ()
+        public virtual void Darpresentacion ()
             {
-                Console.WriteLine("Id:"+ Id +" --Name: "+ Name+ "\n Description: " + Description);
+                Console.WriteLine("Id:"+ Id +" --Name: "+ Name+"Type: "+Type );
                 //Console.WriteLine("Name: "+Name);
                 //Console.WriteLine("Description: "+Description);
                 //Console.WriteLine("TypeId: "+Type.Id);

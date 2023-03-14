@@ -14,18 +14,22 @@ namespace Pokedex.Pokemones.DataManipulation
         Pokemon pokemonData = new Pokemon();
         Validators validate = new Validators();
         SqlCommand insert;
+        SqlDataAdapter pokemonAdapter;
+        SqlDataAdapter skillAdapter;
+        SqlDataAdapter typesAdapter;
+        DataSet pokemons = new DataSet();
         string insertPokemon = "";
         string pokemonInfo = "";
-        private string sqlString = "SELECT * FROM Pokemons";
-        SqlDataAdapter adapter;
-        DataSet pokemons = new DataSet();
+        private string selectPokemon = "SELECT * FROM Pokemons";
+        private string selectSkills ="SELECT * FROM Skills";
+        private string selectTypes = "SELECT *FROM Types";
+
 
         public DataBaseManipulaton() 
         {
             Connection = new SqlConnection(ConnectionString);
             
         }
-
 
         public void CreatePokemon()
         {
@@ -76,7 +80,8 @@ namespace Pokedex.Pokemones.DataManipulation
             }
             else
             {
-                Console.WriteLine("Wrong Chosen Number!!");
+                Console.WriteLine("Wrong Chosen Number!");
+                Environment.Exit(0);    
             }
         }
 
@@ -84,24 +89,30 @@ namespace Pokedex.Pokemones.DataManipulation
         //DataBaseConnection dbcc;
         public void ReadData()
         {
-            //dbcn.OpenConnection();
-            adapter = new SqlDataAdapter(sqlString,Connection);
-            adapter.Fill(pokemons, "Pokemons");
+            //Pokemon Filler
+            //pokemonAdapter = new SqlDataAdapter(selectPokemon,Connection);
+            //pokemonAdapter.Fill(pokemons, "Pokemons");
+            dataFiller();
             Console.WriteLine("Lista de Pokemones:");
             foreach (DataRow pokemonRow in pokemons.Tables["Pokemons"].Rows)
             {
                 pokemonData.Id = Convert.ToInt32(pokemonRow["ID"]);
                 pokemonData.Name = Convert.ToString(pokemonRow["Name"]);
                 pokemonData.Description = Convert.ToString(pokemonRow["Description"]);
-                pokemonData.Type = new Types { Id = Convert.ToInt32(pokemonRow["TypeId"]) };
-                pokemonData.Skill = new Skills { Id = Convert.ToInt32(pokemonRow["SkillId"]) };
-                pokemonData.Moves = new Moves[]
-                {
-                    new Moves
-                    {
-                        Id =Convert.ToInt32(pokemonRow["MoveId"])
-                    }
-                };
+                //pokemonData.Type = new Types { Id = Convert.ToInt32(pokemonRow["TypeId"]) };
+                //pokemonData.Skill = new Skills { Id = Convert.ToInt32(pokemonRow["SkillId"]) };
+                //pokemonData.Moves = new Moves[]
+                //{
+                //    new Moves
+                //    {
+                //        Id =Convert.ToInt32(pokemonRow["MoveId"])
+                //    }
+                //};
+                pokemonData.Darpresentacion();
+            }
+            foreach (DataRow skillsRow in pokemons.Tables["Skills"].Rows)
+            {
+                pokemonData.Skill = new Skills {Name = Convert.ToString(skillsRow["Name"])};
                 pokemonData.Darpresentacion();
             }
         }
@@ -116,6 +127,20 @@ namespace Pokedex.Pokemones.DataManipulation
                     Console.WriteLine(pokemonRows["TypeId"]+ "--" + pokemonRows["SkillId"]+ "--" + pokemonRows["MoveId"]);
                 }
             }
+        }
+        public void dataFiller() 
+        {
+            pokemonAdapter = new SqlDataAdapter(selectPokemon,Connection);
+            pokemonAdapter.Fill(pokemons, "Pokemons");
+
+            skillAdapter = new SqlDataAdapter(selectSkills,Connection);
+            skillAdapter.Fill(pokemons,"Skills");
+
+            typesAdapter = new SqlDataAdapter(selectTypes,Connection);
+            typesAdapter.Fill(pokemons,"Types");
+
+
+
         }
     }
 }
