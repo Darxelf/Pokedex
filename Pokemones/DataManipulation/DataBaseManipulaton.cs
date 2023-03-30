@@ -12,6 +12,7 @@ namespace Pokedex.Pokemones.DataManipulation
                                     Trusted_Connection = True";
         public SqlConnection Connection;
         Pokemon pokemonData = new Pokemon();
+        Skills skillData = new Skills();    
         Validators validate = new Validators();
         SqlCommand insert;
         SqlDataAdapter pokemonAdapter;
@@ -109,11 +110,14 @@ namespace Pokedex.Pokemones.DataManipulation
                 //    }
                 //};
                 pokemonData.Darpresentacion();
+                
             }
             foreach (DataRow skillsRow in pokemons.Tables["Skills"].Rows)
             {
-                pokemonData.Skill = new Skills {Name = Convert.ToString(skillsRow["Name"])};
-                pokemonData.Darpresentacion();
+                //Console.WriteLine("Hello World");
+                skillData.Name =  Convert.ToString(skillsRow["Name"]);
+                //pokemonData.Skill = new Skills {Name = Convert.ToString(skillsRow["Name"])};
+                //skillData.Darpresentacion();
             }
         }
         public void ShowData(int pokemonSeleccionado)
@@ -121,11 +125,29 @@ namespace Pokedex.Pokemones.DataManipulation
 
             foreach (DataRow pokemonRows in pokemons.Tables["Pokemons"].Rows)
             {
-                if (pokemonSeleccionado == Convert.ToInt16(pokemonRows["ID"]))
+                foreach (DataRow skillsRow in pokemons.Tables["Skills"].Rows)
                 {
-                    Console.WriteLine(pokemonRows["ID"] + "--" + pokemonRows["Name"] + "--" + pokemonRows["Description"]);
-                    Console.WriteLine(pokemonRows["TypeId"]+ "--" + pokemonRows["SkillId"]+ "--" + pokemonRows["MoveId"]);
+
+                    if (pokemonSeleccionado == Convert.ToInt16(pokemonRows["ID"]))
+                    {
+                        if (Convert.ToInt16(skillsRow["ID"]) == Convert.ToInt16(pokemonRows["SkillId"])) 
+                        {
+                            Console.WriteLine(pokemonRows["ID"] + "--" + pokemonRows["Name"] + "--" + pokemonRows["Description"]);
+                            Console.WriteLine(skillsRow["Name"]);
+                            Console.WriteLine(pokemonRows["TypeId"] + "--" + pokemonRows["SkillId"] + "--" + pokemonRows["MoveId"]);
+                            break;
+                        }
+                       
+                    }
                 }
+
+                //if (pokemonSeleccionado == Convert.ToInt16(pokemonRows["ID"]))
+                //{
+
+
+                //    Console.WriteLine(pokemonRows["ID"] + "--" + pokemonRows["Name"] + "--" + pokemonRows["Description"]);
+                //    Console.WriteLine(pokemonRows["TypeId"]+ "--" + pokemonRows["SkillId"]+ "--" + pokemonRows["MoveId"]);
+                //}
             }
         }
         public void dataFiller() 
