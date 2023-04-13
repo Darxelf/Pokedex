@@ -10,10 +10,10 @@ namespace Pokedex.Pokemones
         public string Name { get; set; }
         public string Description {get;set;}
 
-        public override void Darpresentacion()
-        {
-            Console.WriteLine("Name: "+Name); 
-        }
+        //public override void Darpresentacion()
+        //{
+        //    Console.WriteLine("Name: "+Name); 
+        //}
 
 
     }
