@@ -18,12 +18,7 @@ namespace Pokedex.Pokemones
         public virtual void Darpresentacion ()
             {
                 Console.WriteLine("Id:"+ Id +" --Name: "+ Name+" Type: "+Type.Name+" Skill: "+Skill.Name );
-                //Console.WriteLine("Name: "+Name);
-                //Console.WriteLine("Description: "+Description);
-                //Console.WriteLine("TypeId: "+Type.Id);
-                //Console.WriteLine("SkillId: "+Skill.Id);
-                //Console.WriteLine("Moves: "+Moves[0].Id);
-                //Console.WriteLine(Type);
+
             }
         public virtual void Darpresentacion(int id, string name,  string skill, string type) 
         {
@@ -32,7 +27,7 @@ namespace Pokedex.Pokemones
         }
         public virtual void Darpresentacion(int id, string name,string description, string skill, string type)
         {
-            Console.WriteLine("Id:" + id + "\nName: " + name +"\nDescription: "+description+" \nSkill: " + skill+" Type: " + type );
+            Console.WriteLine("Id:" + id + "\nName: " + name +"\nDescription: "+description+" \nSkill: " + skill+"\nType: " + type );
 
         }
 

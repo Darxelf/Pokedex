@@ -15,13 +15,15 @@ namespace Pokedex.Pokemones.DataManipulation
         Skills skillData = new Skills();    
         Validators validate = new Validators();
         SqlCommand insert;
+        SqlCommand select;
         SqlDataAdapter pokemonAdapter;
         SqlDataAdapter skillAdapter;
         SqlDataAdapter typesAdapter;
         DataSet pokemons = new DataSet();
         string insertPokemon = "";
         string pokemonInfo = "";
-        private string selectPokemon = "SELECT * FROM Pokemons";
+        private string selectPokemon = "SelectPokemonData";
+        //private string selectPokemon = "SELECT * FROM Pokemons";
         private string selectSkills ="SELECT * FROM Skills";
         private string selectTypes = "SELECT *FROM Types";
 
@@ -93,25 +95,35 @@ namespace Pokedex.Pokemones.DataManipulation
             Console.WriteLine("Lista de Pokemones:");
             foreach (DataRow pokemonRow in pokemons.Tables["Pokemons"].Rows)
             {
+               
+                    pokemonData.Darpresentacion
+                        (
+                            Convert.ToInt32(pokemonRow["ID"])
+                            , Convert.ToString(pokemonRow["Pokemon"])
+                            , Convert.ToString(pokemonRow["Type"])
+                            , Convert.ToString(pokemonRow["Skill"])
+                            //,Convert.ToString(pokemonRow["Description"])
+                        );
                 
-                foreach (DataRow skillsRow in pokemons.Tables["Skills"].Rows)
-                {
-                    foreach (DataRow typesRow in pokemons.Tables["Types"].Rows)
-                    {
+
+                //foreach (DataRow skillsRow in pokemons.Tables["Skills"].Rows)
+                //{
+                //    foreach (DataRow typesRow in pokemons.Tables["Types"].Rows)
+                //    {
                        
-                        if (Convert.ToInt16(pokemonRow["SkillId"]) == Convert.ToInt16(skillsRow["Id"]) && Convert.ToInt16(pokemonRow["TypeId"]) == Convert.ToInt16(typesRow["Id"]))
-                        {
-                            pokemonData.Darpresentacion
-                                (
-                                    Convert.ToInt32(pokemonRow["ID"])
-                                    ,pokemonRow["Name"].ToString()
-                                    //,pokemonRow["Description"].ToString()
-                                    ,Convert.ToString(skillsRow["Name"])
-                                    ,Convert.ToString(typesRow["Name"])
-                                );
-                        }
-                    }
-                } 
+                //        if (Convert.ToInt16(pokemonRow["SkillId"]) == Convert.ToInt16(skillsRow["Id"]) && Convert.ToInt16(pokemonRow["TypeId"]) == Convert.ToInt16(typesRow["Id"]))
+                //        {
+                //            pokemonData.Darpresentacion
+                //                (
+                //                    Convert.ToInt32(pokemonRow["ID"])
+                //                    ,pokemonRow["Name"].ToString()
+                //                    //,pokemonRow["Description"].ToString()
+                //                    ,Convert.ToString(skillsRow["Name"])
+                //                    ,Convert.ToString(typesRow["Name"])
+                //                );
+                //        }
+                //    }
+                //} 
             }
         }
         public void ShowData(int pokemonSeleccionado)
@@ -119,41 +131,41 @@ namespace Pokedex.Pokemones.DataManipulation
 
             foreach (DataRow pokemonRow in pokemons.Tables["Pokemons"].Rows)
             {
-                foreach (DataRow skillsRow in pokemons.Tables["Skills"].Rows)
+                if (pokemonSeleccionado == Convert.ToInt16(pokemonRow["ID"]))
                 {
-                    foreach (DataRow typesRow in pokemons.Tables["Types"].Rows)
-                    {
-                        if (pokemonSeleccionado == Convert.ToInt16(pokemonRow["ID"]))
-                        {
-                            if (Convert.ToInt16(skillsRow["ID"]) == Convert.ToInt16(pokemonRow["SkillId"]) && Convert.ToInt16(pokemonRow["TypeId"]) == Convert.ToInt16(typesRow["Id"]))
-                            {
-                                pokemonData.Darpresentacion
-                              (
-                                  Convert.ToInt32(pokemonRow["ID"])
-                                  ,pokemonRow["Name"].ToString()
-                                  ,pokemonRow["Description"].ToString()
-                                  , Convert.ToString(skillsRow["Name"])
-                                  , Convert.ToString(typesRow["Name"])
-                              );
-                                break;
-                            }
 
-                        }
-                    }
-                  
+                        pokemonData.Darpresentacion
+                      (
+                          Convert.ToInt32(pokemonRow["ID"])
+                          , Convert.ToString(pokemonRow["Pokemon"])
+                          , Convert.ToString(pokemonRow["Type"])
+                          , Convert.ToString(pokemonRow["Skill"])
+                          , Convert.ToString(pokemonRow["Description"])
+                      );
+                        break;
                 }
+
             }
         }
         public void dataFiller() 
         {
-            pokemonAdapter = new SqlDataAdapter(selectPokemon,Connection);
+            Connection.Open();
+            select = new SqlCommand(selectPokemon, Connection);
+            select.CommandType = CommandType.StoredProcedure;
+            select.ExecuteNonQuery();
+           
+            pokemonAdapter = new SqlDataAdapter(select);//al select tener el parametro del procedimiento y conexion se usa la variable y ya
             pokemonAdapter.Fill(pokemons, "Pokemons");
+            Connection.Close();
 
-            skillAdapter = new SqlDataAdapter(selectSkills,Connection);
-            skillAdapter.Fill(pokemons,"Skills");
+            //pokemonAdapter = new SqlDataAdapter(selectPokemon, Connection);
+            //pokemonAdapter.Fill(pokemons, "Pokemons");
 
-            typesAdapter = new SqlDataAdapter(selectTypes,Connection);
-            typesAdapter.Fill(pokemons,"Types");
+            //skillAdapter = new SqlDataAdapter(selectSkills,Connection);
+            //skillAdapter.Fill(pokemons,"Skills");
+
+            //typesAdapter = new SqlDataAdapter(selectTypes,Connection);
+            //typesAdapter.Fill(pokemons,"Types");
         }
 
     }
