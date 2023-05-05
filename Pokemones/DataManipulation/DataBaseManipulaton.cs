@@ -22,8 +22,7 @@ namespace Pokedex.Pokemones.DataManipulation
         DataSet pokemons = new DataSet();
         string insertPokemon = "";
         string pokemonInfo = "";
-        private string selectPokemon = "SelectPokemonData";
-        //private string selectPokemon = "SELECT * FROM Pokemons";
+        private string selectPokemon = "SELECT * FROM POKEMONLIST";//query to a View
         private string selectSkills ="SELECT * FROM Skills";
         private string selectTypes = "SELECT *FROM Types";
 
@@ -102,28 +101,7 @@ namespace Pokedex.Pokemones.DataManipulation
                             , Convert.ToString(pokemonRow["Pokemon"])
                             , Convert.ToString(pokemonRow["Type"])
                             , Convert.ToString(pokemonRow["Skill"])
-                            //,Convert.ToString(pokemonRow["Description"])
                         );
-                
-
-                //foreach (DataRow skillsRow in pokemons.Tables["Skills"].Rows)
-                //{
-                //    foreach (DataRow typesRow in pokemons.Tables["Types"].Rows)
-                //    {
-                       
-                //        if (Convert.ToInt16(pokemonRow["SkillId"]) == Convert.ToInt16(skillsRow["Id"]) && Convert.ToInt16(pokemonRow["TypeId"]) == Convert.ToInt16(typesRow["Id"]))
-                //        {
-                //            pokemonData.Darpresentacion
-                //                (
-                //                    Convert.ToInt32(pokemonRow["ID"])
-                //                    ,pokemonRow["Name"].ToString()
-                //                    //,pokemonRow["Description"].ToString()
-                //                    ,Convert.ToString(skillsRow["Name"])
-                //                    ,Convert.ToString(typesRow["Name"])
-                //                );
-                //        }
-                //    }
-                //} 
             }
         }
         public void ShowData(int pokemonSeleccionado)
@@ -151,21 +129,13 @@ namespace Pokedex.Pokemones.DataManipulation
         {
             Connection.Open();
             select = new SqlCommand(selectPokemon, Connection);
-            select.CommandType = CommandType.StoredProcedure;
             select.ExecuteNonQuery();
            
             pokemonAdapter = new SqlDataAdapter(select);//al select tener el parametro del procedimiento y conexion se usa la variable y ya
             pokemonAdapter.Fill(pokemons, "Pokemons");
             Connection.Close();
 
-            //pokemonAdapter = new SqlDataAdapter(selectPokemon, Connection);
-            //pokemonAdapter.Fill(pokemons, "Pokemons");
 
-            //skillAdapter = new SqlDataAdapter(selectSkills,Connection);
-            //skillAdapter.Fill(pokemons,"Skills");
-
-            //typesAdapter = new SqlDataAdapter(selectTypes,Connection);
-            //typesAdapter.Fill(pokemons,"Types");
         }
 
     }
